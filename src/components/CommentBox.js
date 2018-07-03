@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from 'actions';
 
 class CommentBox extends Component {
 
@@ -6,16 +8,22 @@ class CommentBox extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h4>Add a comment</h4>
-          <textarea
-            value={this.state.comment}
-            onChange={this.handleChange}>
-          </textarea>
-          <div>
-            <button>Submit comment</button>
-          </div>
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <h4>Add a comment</h4>
+            <textarea
+              value={this.state.comment}
+              onChange={this.handleChange}>
+            </textarea>
+            <div>
+              <button>Submit comment</button>
+            </div>
+        </form>
+        <button className="fetch-comments-button"
+          onClick={this.props.fetchComments}>
+          Fetch comments
+        </button>
+      </div>
     );
   }
 
@@ -26,9 +34,9 @@ class CommentBox extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    // TODO - call action creator
+    this.props.saveComment(this.state.comment);
     this.setState({ comment: '' });
   };
 }
 
-export default CommentBox;
+export default connect(null, actions)(CommentBox);

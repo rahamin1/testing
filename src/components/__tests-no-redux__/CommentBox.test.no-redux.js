@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Root from 'Root';
+
 import CommentBox from 'components/CommentBox';
 
 const testText = 'testing textarea';
@@ -8,20 +8,16 @@ const testEvent = { target: { value: testText } };
 let wrapped;
 
 beforeEach(() => {
-  wrapped = mount(
-    <Root>
-      <CommentBox />
-    </Root>
-  );
+  wrapped = mount(<CommentBox />);
 });
 
 afterEach(() => {
   wrapped.unmount();
 });
 
-it('display a textarea and 2 buttons', () => {
+it('display a textarea and a button', () => {
   expect(wrapped.find('textarea').length).toEqual(1);
-  expect(wrapped.find('button').length).toEqual(2);
+  expect(wrapped.find('button').length).toEqual(1);
 });
 
 describe('the text area: ', () => {
